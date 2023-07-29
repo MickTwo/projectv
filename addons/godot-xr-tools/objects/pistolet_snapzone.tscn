@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfmci4erfkj84"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/snap_zone.gd" id="1_kclki"]
+
+[sub_resource type="SphereShape3D" id="1"]
+radius = 0.025
+
+[sub_resource type="BoxMesh" id="BoxMesh_a13s8"]
+
+[node name="pistolet_snapzone" type="Area3D"]
+collision_layer = 4
+collision_mask = 65540
+script = ExtResource("1_kclki")
+grab_distance = 0.025
+snap_mode = 1
+snap_require = "glowstick"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.2, 0, 0, -0.0933445)
+mesh = SubResource("BoxMesh_a13s8")
+
+[connection signal="body_entered" from="." to="." method="_on_snap_zone_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_snap_zone_body_exited"]

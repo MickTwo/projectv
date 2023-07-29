@@ -1,0 +1,136 @@
+[gd_scene load_steps=19 format=3 uid="uid://suxpuvl2tiyw"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_etilo"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pistolet_testowy.gd" id="2_ke470"]
+[ext_resource type="PackedScene" uid="uid://bsl1q8urmu10x" path="res://uspik2.glb" id="3_tdqdj"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="4_4sohv"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_k6hk8"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="6_7h0k7"]
+[ext_resource type="AudioStream" uid="uid://c45g518smnecj" path="res://psound.mp3" id="7_37hff"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5af0"]
+size = Vector3(0.0499556, 0.0508807, 0.217354)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qvl2"]
+albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_opmod"]
+albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8g3r"]
+albedo_color = Color(0.705882, 0.0941176, 0.105882, 1)
+metallic = 0.79
+metallic_specular = 1.0
+roughness = 0.23
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jc2o2"]
+albedo_color = Color(0.454902, 0.454902, 0.454902, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_107ae"]
+albedo_color = Color(0.372549, 0.376471, 0.447059, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_281p7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68ntc"]
+albedo_color = Color(0, 0.678431, 0, 1)
+emission_enabled = true
+emission = Color(0, 0.803922, 0, 1)
+emission_energy_multiplier = 32.0
+
+[sub_resource type="Animation" id="Animation_pg1tg"]
+resource_name = "uspik_strzal"
+length = 0.09
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uspik2/Cube_007/Cube_006:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.09),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.000818058, 1.09342, -0.300869), Vector3(-0.000817813, 1.09342, -3.1037), Vector3(-0.000818058, 1.09342, -0.300869)]
+}
+
+[sub_resource type="Animation" id="Animation_5ai4k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uspik2/Cube_007/Cube_006:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.000818058, 1.09342, -0.300869)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h10q2"]
+_data = {
+"RESET": SubResource("Animation_5ai4k"),
+"uspik_strzal": SubResource("Animation_pg1tg")
+}
+
+[node name="pistolet_testowy" groups=["uspik"] instance=ExtResource("1_etilo")]
+script = ExtResource("2_ke470")
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00959028, -0.0923034)
+shape = SubResource("BoxShape3D_c5af0")
+
+[node name="uspik2" parent="." index="1" instance=ExtResource("3_tdqdj")]
+transform = Transform3D(-0.025, 0, -2.18557e-09, 0, 0.025, 0, 2.18557e-09, 0, -0.025, 0, 0, 0)
+
+[node name="Cube_007" parent="uspik2" index="0"]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0.000988043, -0.680807, 3.8363)
+surface_material_override/0 = SubResource("StandardMaterial3D_5qvl2")
+
+[node name="Cube_005" parent="uspik2/Cube_007" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_opmod")
+
+[node name="Cube_006" parent="uspik2/Cube_007" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000818058, 1.09342, -0.300869)
+surface_material_override/0 = SubResource("StandardMaterial3D_h8g3r")
+
+[node name="Cube_004" parent="uspik2/Cube_007/Cube_006" index="0"]
+transform = Transform3D(0.352217, 0, 0, 0, 0.352217, 0, 0, 0, 0.352217, -0.00018033, 0.372024, 0.576829)
+surface_material_override/0 = SubResource("StandardMaterial3D_jc2o2")
+
+[node name="Cylinder_002" parent="uspik2/Cube_007" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_107ae")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="uspik2" index="1"]
+transform = Transform3D(0.037948, 0, 5.9952e-15, 0, 0.043247, 0, -7.54952e-15, 0, 0.0375321, -6.71242e-07, 1.08716, 7.67811)
+mesh = SubResource("BoxMesh_281p7")
+surface_material_override/0 = SubResource("StandardMaterial3D_68ntc")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("7_37hff")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0373049, 0.0247059, -0.239586)
+visible = false
+light_color = Color(1, 0.854902, 0.752941, 1)
+light_energy = 2.0
+
+[node name="GrabPointHandRight" parent="." index="4" instance=ExtResource("4_4sohv")]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -0.0154584, 0.0276441, -0.108127)
+visible = true
+
+[node name="GrabPointHandLeft" parent="." index="5" instance=ExtResource("5_k6hk8")]
+
+[node name="GrabPointSnap" parent="." index="6" instance=ExtResource("6_7h0k7")]
+
+[node name="Marker3D" type="Marker3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0122996, -0.274061)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+libraries = {
+"": SubResource("AnimationLibrary_h10q2")
+}
+
+[editable path="uspik2"]

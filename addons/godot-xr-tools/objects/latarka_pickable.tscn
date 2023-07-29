@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://ocdw7qke737a"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.gd" id="1_nk7kf"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="2_c2ldv"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="3_gplos"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="4_iys8u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dq61q"]
+size = Vector3(0.0394618, 0.0484932, 0.239545)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8o7pe"]
+
+[node name="latarka_pickable" type="RigidBody3D" groups=["latarka"]]
+collision_layer = 4
+collision_mask = 196615
+freeze_mode = 1
+script = ExtResource("1_nk7kf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.142975)
+shape = SubResource("BoxShape3D_dq61q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.24037, 0, 0, 0.140906)
+mesh = SubResource("BoxMesh_8o7pe")
+
+[node name="GrabPointHandRight" parent="." instance=ExtResource("2_c2ldv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0336143, 0.0764583)
+
+[node name="GrabPointHandLeft" parent="." instance=ExtResource("3_gplos")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.029102, 0.0816057)
+
+[node name="GrabPointSnap" parent="." instance=ExtResource("4_iys8u")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+light_energy = 8.275
+spot_range = 9.7676
+spot_angle = 33.2383
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]

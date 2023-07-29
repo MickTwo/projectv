@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbaa72ggv2jbl"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_2w5e2"]
+[ext_resource type="PackedScene" uid="uid://b8uf7akhnp1x7" path="res://addons/godot-xr-tools/objects/pistolet.glb" id="2_o8ihu"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="3_ghyac"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_53w6p"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="5_5b0y7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p0n08"]
+size = Vector3(0.0413938, 0.0403179, 0.624726)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q300i"]
+size = Vector3(0.0319894, 0.0987552, 0.0539312)
+
+[node name="pistolet_pickable" type="RigidBody3D" groups=["pistolet"]]
+collision_layer = 4
+collision_mask = 196615
+freeze_mode = 1
+script = ExtResource("1_2w5e2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0219767, 0.0292515, -0.171352)
+shape = SubResource("BoxShape3D_p0n08")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.972203, 0.234141, 0, -0.234141, 0.972203, 0.0398678, -0.0602962, 0.093124)
+shape = SubResource("BoxShape3D_q300i")
+
+[node name="pistolet" parent="." instance=ExtResource("2_o8ihu")]
+transform = Transform3D(-1.09278e-09, 0, -0.025, 0, 0.025, 0, 0.025, 0, -1.09278e-09, 0.0236126, 0, 0.130671)
+
+[node name="GrabPointHandRight" parent="." instance=ExtResource("3_ghyac")]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.01074, 0.0426648, 0.00590063)
+
+[node name="GrabPointHandLeft" parent="." instance=ExtResource("4_53w6p")]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.0334725, 0.0424869, 0)
+
+[node name="GrabPointSnap" parent="." instance=ExtResource("5_5b0y7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0232851, 0.0272747, -0.482888)

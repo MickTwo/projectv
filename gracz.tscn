@@ -1,0 +1,104 @@
+[gd_scene load_steps=15 format=3 uid="uid://dpy4vyvvo1akj"]
+
+[ext_resource type="Script" path="res://gracz.gd" id="1_0wfbn"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="1_g6wdi"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="2_3yhwo"]
+[ext_resource type="PackedScene" uid="uid://dschv66aipmfa" path="res://addons/godot-xr-tools/objects/snap_latarka.tscn" id="2_afnut"]
+[ext_resource type="PackedScene" uid="uid://cfmci4erfkj84" path="res://addons/godot-xr-tools/objects/pistolet_snapzone.tscn" id="2_c5c6r"]
+[ext_resource type="PackedScene" uid="uid://raeeicvvindd" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_hand.tscn" id="3_1w7xi"]
+[ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="4_a5rku"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="5_1klao"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="7_73r2s"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h75pa"]
+font_size = 196
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sxx8"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4f7xn"]
+viewport_path = NodePath("XROrigin3D/KontrLewy/Sprite3D/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_gmvan"]
+font_size = 146
+font_color = Color(0.658824, 1, 0.47451, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pp5kx"]
+albedo_color = Color(0, 0.643137, 1, 1)
+
+[node name="gracz" type="Node3D"]
+script = ExtResource("1_0wfbn")
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 1106.0
+offset_top = 838.0
+offset_right = 1502.0
+offset_bottom = 1109.0
+text = "Test"
+label_settings = SubResource("LabelSettings_h75pa")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+current = true
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+fov = 90.0
+
+[node name="snap_latarka" parent="XROrigin3D/XRCamera3D" instance=ExtResource("2_afnut")]
+transform = Transform3D(1, 0, 0, 0, 0.996439, 0.0843213, 0, -0.0843213, 0.996439, 0, 0.082, -0.164585)
+
+[node name="KontrPrawy" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+pose = &"aim"
+
+[node name="RightHand" parent="XROrigin3D/KontrPrawy" instance=ExtResource("3_1w7xi")]
+hand_material_override = SubResource("StandardMaterial3D_7sxx8")
+
+[node name="MovementTurn" parent="XROrigin3D/KontrPrawy" instance=ExtResource("1_g6wdi")]
+turn_mode = 2
+
+[node name="FunctionPickup" parent="XROrigin3D/KontrPrawy" instance=ExtResource("2_3yhwo")]
+
+[node name="KontrLewy" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+pose = &"aim"
+
+[node name="Sprite3D" type="Sprite3D" parent="XROrigin3D/KontrLewy"]
+transform = Transform3D(-1.88745e-09, 2.98023e-09, -0.025, -3.7749e-09, -0.025, -2.98023e-09, -0.025, 3.77489e-09, 1.88745e-09, -0.0565209, -0.00857554, 0.107049)
+texture = SubResource("ViewportTexture_4f7xn")
+
+[node name="SubViewport" type="SubViewport" parent="XROrigin3D/KontrLewy/Sprite3D"]
+transparent_bg = true
+
+[node name="Label" type="Label" parent="XROrigin3D/KontrLewy/Sprite3D/SubViewport"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "100 HP
+"
+label_settings = SubResource("LabelSettings_gmvan")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftHand" parent="XROrigin3D/KontrLewy" instance=ExtResource("4_a5rku")]
+hand_material_override = SubResource("StandardMaterial3D_pp5kx")
+
+[node name="MovementDirect" parent="XROrigin3D/KontrLewy" instance=ExtResource("5_1klao")]
+strafe = true
+
+[node name="FunctionPickup" parent="XROrigin3D/KontrLewy" instance=ExtResource("2_3yhwo")]
+
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("7_73r2s")]
+
+[node name="pistolet_snapzone" parent="XROrigin3D/PlayerBody" instance=ExtResource("2_c5c6r")]
+transform = Transform3D(0.75639, -0.575619, 0.310704, -0.169299, 0.286536, 0.942993, -0.631832, -0.765872, 0.119281, -0.154997, 0.622931, -0.121545)
+
+[node name="pistolet_snapzone2" parent="XROrigin3D/PlayerBody" instance=ExtResource("2_c5c6r")]
+transform = Transform3D(0.75639, -0.575619, 0.310704, -0.169299, 0.286536, 0.942993, -0.631832, -0.765872, 0.119281, -0.233622, 0.622931, -0.121545)
