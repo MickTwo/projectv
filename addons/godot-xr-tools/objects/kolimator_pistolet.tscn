@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://bu3fbnvsmkvqb"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_0jsm3"]
+[ext_resource type="PackedScene" uid="uid://wbkas0y6d6v5" path="res://kolimator_pistolet.glb" id="2_t57do"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="3_x3pdv"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_rmpn5"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="5_kxbvh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j4fpm"]
+size = Vector3(0.0250825, 0.0242394, 0.0615439)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aii0t"]
+albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ayhvr"]
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pv35f"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[node name="PickableObject" groups=["kolimator_pistolet"] instance=ExtResource("1_0jsm3")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mass = 2.0
+ranged_grab_speed = 0.1
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00189891, 0)
+shape = SubResource("BoxShape3D_j4fpm")
+
+[node name="kolimator_pistolet" parent="." index="1" instance=ExtResource("2_t57do")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)
+
+[node name="kolimator" parent="kolimator_pistolet" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_aii0t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="kolimator_pistolet/kolimator" index="0"]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0.150076, 0.815277)
+mesh = SubResource("PlaneMesh_ayhvr")
+surface_material_override/0 = SubResource("StandardMaterial3D_pv35f")
+
+[node name="GrabPointHandRight" parent="." index="2" instance=ExtResource("3_x3pdv")]
+transform = Transform3D(-0.706897, -0.707317, -6.17989e-08, -0.707317, 0.706897, -6.18356e-08, 8.74228e-08, 0, -1, -0.0476665, 0.0103564, 0.0466877)
+
+[node name="GrabPointHandLeft" parent="." index="3" instance=ExtResource("4_rmpn5")]
+transform = Transform3D(-0.433013, -0.75, 0.5, -0.866025, 0.5, -7.57103e-08, -0.25, -0.433013, -0.866025, -0.0810616, 0.0332283, 0.0883628)
+
+[node name="GrabPointSnap" parent="." index="4" instance=ExtResource("5_kxbvh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00726059, 0)
+
+[editable path="kolimator_pistolet"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://djywg4key3y75"]
+
+[ext_resource type="Script" path="res://pocisk.gd" id="1_c42ry"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_by3eb"]
+radius = 0.0784931
+
+[sub_resource type="SphereMesh" id="SphereMesh_46vdg"]
+
+[node name="RigidBody3D" type="RigidBody3D" groups=["pocisk"]]
+script = ExtResource("1_c42ry")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_by3eb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_46vdg")

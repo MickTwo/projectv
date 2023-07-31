@@ -1,15 +1,47 @@
-[gd_scene load_steps=19 format=3 uid="uid://suxpuvl2tiyw"]
+[gd_scene load_steps=36 format=3 uid="uid://suxpuvl2tiyw"]
 
 [ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_etilo"]
 [ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pistolet_testowy.gd" id="2_ke470"]
 [ext_resource type="PackedScene" uid="uid://bsl1q8urmu10x" path="res://uspik2.glb" id="3_tdqdj"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="4_4sohv"]
+[ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="4_8p8jv"]
+[ext_resource type="AudioStream" uid="uid://bwelfhdf1q4h8" path="res://sil.wav" id="5_6wm5i"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/snapzone_tlumikpis.gd" id="5_52m7u"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/snapzone_kolim.gd" id="5_ggvk5"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_k6hk8"]
 [ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="6_7h0k7"]
 [ext_resource type="AudioStream" uid="uid://c45g518smnecj" path="res://psound.mp3" id="7_37hff"]
+[ext_resource type="PackedScene" uid="uid://dpbh7pc0drtpn" path="res://ekranik_uspik.glb" id="8_wtfnk"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u3lgx"]
+spread = 20.0
+gravity = Vector3(0, -5, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ki6uj"]
+albedo_color = Color(0.94902, 0.517647, 0, 1)
+emission_enabled = true
+emission = Color(0.917647, 0.709804, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aio6v"]
+material = SubResource("StandardMaterial3D_ki6uj")
+size = Vector3(0.01, 0.01, 0.01)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c5af0"]
 size = Vector3(0.0499556, 0.0508807, 0.217354)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g6twd"]
+radius = 0.005
+height = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxwjt"]
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qvl2"]
 albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -37,6 +69,21 @@ emission_enabled = true
 emission = Color(0, 0.803922, 0, 1)
 emission_energy_multiplier = 32.0
 
+[sub_resource type="Animation" id="Animation_5ai4k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uspik2/Cube_007/Cube_006:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.000818058, 1.09342, -0.300869)]
+}
+
 [sub_resource type="Animation" id="Animation_pg1tg"]
 resource_name = "uspik_strzal"
 length = 0.09
@@ -54,38 +101,93 @@ tracks/0/keys = {
 "values": [Vector3(-0.000818058, 1.09342, -0.300869), Vector3(-0.000817813, 1.09342, -3.1037), Vector3(-0.000818058, 1.09342, -0.300869)]
 }
 
-[sub_resource type="Animation" id="Animation_5ai4k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("uspik2/Cube_007/Cube_006:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.000818058, 1.09342, -0.300869)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h10q2"]
 _data = {
 "RESET": SubResource("Animation_5ai4k"),
 "uspik_strzal": SubResource("Animation_pg1tg")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8vjf"]
+albedo_color = Color(0.215686, 0.34902, 0.427451, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lyls"]
+albedo_color = Color(0.368627, 0.529412, 0.996078, 1)
+emission_enabled = true
+emission = Color(0.67451, 0.658824, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_uwxmw"]
+viewport_path = NodePath("ekranik_uspik/Sprite3D/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_yho8t"]
+font_size = 80
+font_color = Color(0.360784, 0.329412, 0.647059, 1)
+
+[sub_resource type="GDScript" id="GDScript_aqld3"]
+resource_name = "labelek_pistolecik"
+script/source = "extends Label
+
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dygoa"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_i65le"]
+font_size = 64
+
 [node name="pistolet_testowy" groups=["uspik"] instance=ExtResource("1_etilo")]
+can_sleep = false
 script = ExtResource("2_ke470")
 
-[node name="CollisionShape3D" parent="." index="0"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.0150629, -0.203556)
+emitting = false
+amount = 60
+lifetime = 0.08
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_u3lgx")
+draw_pass_1 = SubResource("BoxMesh_aio6v")
+
+[node name="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00959028, -0.0923034)
 shape = SubResource("BoxShape3D_c5af0")
 
-[node name="uspik2" parent="." index="1" instance=ExtResource("3_tdqdj")]
+[node name="uspik2" parent="." index="2" instance=ExtResource("3_tdqdj")]
 transform = Transform3D(-0.025, 0, -2.18557e-09, 0, 0.025, 0, 2.18557e-09, 0, -0.025, 0, 0, 0)
 
-[node name="Cube_007" parent="uspik2" index="0"]
+[node name="SnapZone_scope4x" parent="uspik2" index="0" instance=ExtResource("4_8p8jv")]
+transform = Transform3D(1, 0, 5.68434e-14, 0, 1, 0, -5.68434e-14, 0, 1, -6.17862e-07, 1.48151, 7.06753)
+grab_distance = 0.05
+snap_require = "scope4x"
+
+[node name="SnapZone_tlumik" parent="uspik2" index="1" instance=ExtResource("4_8p8jv")]
+transform = Transform3D(1, 0, 2.84217e-14, 0, 1, 0, -2.84217e-14, 0, 1, 0, 0, 0)
+script = ExtResource("5_52m7u")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="uspik2/SnapZone_tlumik" index="1"]
+stream = ExtResource("5_6wm5i")
+
+[node name="SnapZone_kolimator" parent="uspik2" index="2" instance=ExtResource("4_8p8jv")]
+transform = Transform3D(40, 0, 1.36424e-12, 0, 40, 0, -1.36424e-12, 0, 40, -4.01839e-07, 1.10334, 4.59651)
+script = ExtResource("5_ggvk5")
+grab_distance = 0.01
+snap_require = "kolimator_pistolet"
+
+[node name="celoff" type="MeshInstance3D" parent="uspik2/SnapZone_kolimator" index="1"]
+transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 7.10543e-15, 0, 1, -0.0195827, -0.0145776, 0.065467)
+mesh = SubResource("CapsuleMesh_g6twd")
+skeleton = NodePath("../../..")
+
+[node name="celon" type="MeshInstance3D" parent="uspik2/SnapZone_kolimator" index="2"]
+transform = Transform3D(1.1, 0, -7.81597e-15, 0, 1.1, 0, 7.81597e-15, 0, 1.1, -0.0195827, -0.0145776, 0.065467)
+visible = false
+mesh = SubResource("CapsuleMesh_g6twd")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_lxwjt")
+
+[node name="Cube_007" parent="uspik2" index="3"]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0.000988043, -0.680807, 3.8363)
 surface_material_override/0 = SubResource("StandardMaterial3D_5qvl2")
 
@@ -103,34 +205,81 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jc2o2")
 [node name="Cylinder_002" parent="uspik2/Cube_007" index="2"]
 surface_material_override/0 = SubResource("StandardMaterial3D_107ae")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="uspik2" index="1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="uspik2" index="4"]
 transform = Transform3D(0.037948, 0, 5.9952e-15, 0, 0.043247, 0, -7.54952e-15, 0, 0.0375321, -6.71242e-07, 1.08716, 7.67811)
 mesh = SubResource("BoxMesh_281p7")
 surface_material_override/0 = SubResource("StandardMaterial3D_68ntc")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
 stream = ExtResource("7_37hff")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="3"]
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0373049, 0.0247059, -0.239586)
 visible = false
 light_color = Color(1, 0.854902, 0.752941, 1)
 light_energy = 2.0
 
-[node name="GrabPointHandRight" parent="." index="4" instance=ExtResource("4_4sohv")]
+[node name="GrabPointHandRight" parent="." index="5" instance=ExtResource("4_4sohv")]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -0.0154584, 0.0276441, -0.108127)
 visible = true
 
-[node name="GrabPointHandLeft" parent="." index="5" instance=ExtResource("5_k6hk8")]
+[node name="GrabPointHandLeft" parent="." index="6" instance=ExtResource("5_k6hk8")]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.0106336, 0.031171, -0.10798)
 
-[node name="GrabPointSnap" parent="." index="6" instance=ExtResource("6_7h0k7")]
+[node name="GrabPointSnap" parent="." index="7" instance=ExtResource("6_7h0k7")]
 
-[node name="Marker3D" type="Marker3D" parent="." index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0122996, -0.274061)
+[node name="Marker3D" type="Marker3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0122996, -0.293757)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 libraries = {
 "": SubResource("AnimationLibrary_h10q2")
 }
 
+[node name="ekranik_uspik" parent="." index="10" instance=ExtResource("8_wtfnk")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, -0.0709931, -0.000764579, -0.167416)
+
+[node name="Cube_008" parent="ekranik_uspik" index="0"]
+transform = Transform3D(-1, -8.74228e-08, 7.64274e-15, -8.74228e-08, 1, -8.74228e-08, 0, -8.74228e-08, -1, 1.46609, 0.228837, 3.52511)
+surface_material_override/0 = SubResource("StandardMaterial3D_u8vjf")
+
+[node name="Plane" parent="ekranik_uspik/Cube_008" index="0"]
+transform = Transform3D(1, 1.85289e-22, 5.78515e-29, -7.405e-29, 0, 1, -1.69407e-21, -1, 0, 0.0195658, 0.0868579, -0.00418401)
+surface_material_override/0 = SubResource("StandardMaterial3D_8lyls")
+
+[node name="Sprite3D" type="Sprite3D" parent="ekranik_uspik" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.33867, -1.73946, 3.55691)
+texture = SubResource("ViewportTexture_uwxmw")
+
+[node name="SubViewport" type="SubViewport" parent="ekranik_uspik/Sprite3D" index="0"]
+transparent_bg = true
+
+[node name="Label" type="Label" parent="ekranik_uspik/Sprite3D/SubViewport" index="0"]
+offset_right = 132.0
+offset_bottom = 161.0
+text = "13"
+label_settings = SubResource("LabelSettings_yho8t")
+script = SubResource("GDScript_aqld3")
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="11"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0119443, -0.260688)
+target_position = Vector3(0, -200, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="." index="12"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, -0.0422591, -0.0132141, -0.076775)
+texture = SubResource("ViewportTexture_dygoa")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" index="0"]
+transparent_bg = true
+
+[node name="label_cel" type="Label" parent="Sprite3D/SubViewport" index="0"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "odnoga"
+label_settings = SubResource("LabelSettings_i65le")
+
+[connection signal="body_entered" from="uspik2/SnapZone_kolimator" to="." method="_on_snap_zone_kolimator_body_entered"]
+[connection signal="body_entered" from="uspik2/SnapZone_kolimator" to="uspik2/SnapZone_kolimator" method="_on_body_entered"]
+
 [editable path="uspik2"]
+[editable path="ekranik_uspik"]

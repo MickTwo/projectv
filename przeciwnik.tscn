@@ -1,0 +1,133 @@
+[gd_scene load_steps=12 format=3 uid="uid://qskdjsp2kc4"]
+
+[ext_resource type="Script" path="res://przeciwnik.gd" id="1_btb4a"]
+[ext_resource type="PackedScene" uid="uid://dfcco3qlcsatu" path="res://enemy.glb" id="2_6ig1u"]
+[ext_resource type="AudioStream" uid="uid://bfqrgcxx2dqdg" path="res://hed.wav" id="3_6t5h6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_00ecp"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bx0t0"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mr720"]
+radius = 0.0829227
+height = 0.223226
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sfcfc"]
+size = Vector3(0.231597, 0.894461, 0.111661)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b7vxe"]
+size = Vector3(0.124535, 1, 0.132553)
+
+[sub_resource type="Animation" id="Animation_2yfeb"]
+resource_name = "zgon"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("enemy:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.785398, 0, 0), Vector3(-1.5708, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("enemy:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.357212, -0.504411), Vector3(0, 0.0977115, -1.00882)]
+}
+
+[sub_resource type="Animation" id="Animation_li0yo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("enemy:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("enemy:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_luy83"]
+_data = {
+"RESET": SubResource("Animation_li0yo"),
+"zgon": SubResource("Animation_2yfeb")
+}
+
+[node name="przeciwnik" type="CharacterBody3D" groups=["enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_btb4a")
+
+[node name="enemy" parent="." instance=ExtResource("2_6ig1u")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="enemy"]
+transform = Transform3D(0.25, 0, 0, 0, -1.09279e-08, -0.25, 0, 0.25, -1.09279e-08, -0.0497425, 2.65923, 0.235026)
+mesh = SubResource("SphereMesh_00ecp")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_bx0t0")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="enemy"]
+transform = Transform3D(0.25, 0, 0, 0, -1.09279e-08, -0.25, 0, 0.25, -1.09279e-08, 0.056253, 2.65477, 0.238276)
+mesh = SubResource("SphereMesh_00ecp")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_bx0t0")
+
+[node name="Area3D" type="Area3D" parent="." groups=["enemy_glowa"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04923, 0.0450679)
+
+[node name="glowa" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_mr720")
+
+[node name="Area3D2" type="Area3D" parent="." groups=["enemy_tors"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.443415, 0)
+
+[node name="tors" type="CollisionShape3D" parent="Area3D2"]
+shape = SubResource("BoxShape3D_sfcfc")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6t5h6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.485747, -0.0397239)
+shape = SubResource("BoxShape3D_b7vxe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_luy83")
+}
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+
+[editable path="enemy"]

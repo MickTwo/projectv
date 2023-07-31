@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://c5sn8n7fm6hfw"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_iw3b6"]
+[ext_resource type="PackedScene" uid="uid://utujbkbby40v" path="res://scope4x.glb" id="2_277tx"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="3_1mmmk"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_p5d4e"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="5_h1i6a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8kyts"]
+size = Vector3(0.0261873, 0.0170497, 0.145089)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dh4qm"]
+albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cd4pt"]
+albedo_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[node name="scope4x" groups=["scope4x"] instance=ExtResource("1_iw3b6")]
+
+[node name="CollisionShape3D" parent="." index="0" groups=["scope4x"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00456954, 0)
+shape = SubResource("BoxShape3D_8kyts")
+
+[node name="scope4x" parent="." index="1" instance=ExtResource("2_277tx")]
+transform = Transform3D(-0.025, 0, -2.18557e-09, 0, 0.025, 0, 2.18557e-09, 0, -0.025, 0, 0, 0)
+
+[node name="Cylinder_005" parent="scope4x" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_dh4qm")
+
+[node name="Cube_010" parent="scope4x/Cylinder_005" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 1.11022e-16, 0.0159239, 1.06373)
+surface_material_override/0 = SubResource("StandardMaterial3D_cd4pt")
+
+[node name="GrabPointHandRight" parent="." index="2" instance=ExtResource("3_1mmmk")]
+transform = Transform3D(0.629768, -0.776783, 0, 0.776783, 0.629768, 0, 0, 0, 1, -0.00735261, 0.0352465, -0.112155)
+
+[node name="GrabPointHandLeft" parent="." index="3" instance=ExtResource("4_p5d4e")]
+transform = Transform3D(0.180453, 0.419137, -0.88981, -0.967388, -0.0878632, -0.237572, -0.177757, 0.903662, 0.389613, 0.0760692, 0.0324505, -0.0559171)
+visible = true
+
+[node name="GrabPointSnap" parent="." index="4" instance=ExtResource("5_h1i6a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0100291, 0)
+
+[editable path="scope4x"]

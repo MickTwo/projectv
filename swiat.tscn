@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dek74cvih7l3g"]
+[gd_scene load_steps=23 format=3 uid="uid://dek74cvih7l3g"]
 
 [ext_resource type="PackedScene" uid="uid://dpy4vyvvo1akj" path="res://gracz.tscn" id="1_2xoik"]
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="2_i3m5a"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://bns5xndj0ofn" path="res://addons/godot-xr-tools/objects/latarkapickble.tscn" id="5_lrvdv"]
 [ext_resource type="PackedScene" uid="uid://btgmh67sk6f7o" path="res://addons/godot-xr-tools/objects/glowstick.tscn" id="7_8io52"]
 [ext_resource type="PackedScene" uid="uid://suxpuvl2tiyw" path="res://addons/godot-xr-tools/objects/pistolet_testowy.tscn" id="7_ubxrm"]
+[ext_resource type="PackedScene" uid="uid://bu3fbnvsmkvqb" path="res://addons/godot-xr-tools/objects/kolimator_pistolet.tscn" id="8_en4f0"]
+[ext_resource type="PackedScene" uid="uid://c0ap5tqnmt4oj" path="res://assetki/kubek.tscn" id="9_anmqm"]
+[ext_resource type="PackedScene" uid="uid://c5sn8n7fm6hfw" path="res://addons/godot-xr-tools/objects/scope4x.tscn" id="10_x005h"]
+[ext_resource type="PackedScene" uid="uid://qskdjsp2kc4" path="res://przeciwnik.tscn" id="11_i1d1l"]
 
 [sub_resource type="GDScript" id="GDScript_od5va"]
 
@@ -249,3 +253,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372737, 0.834023, -1.6144)
 
 [node name="PickableObject4" parent="." instance=ExtResource("7_8io52")]
 transform = Transform3D(0.866025, 0.5, -2.18557e-08, 0, -4.37114e-08, -1, -0.5, 0.866025, -3.78552e-08, -0.454686, 0.834023, -1.56691)
+
+[node name="PickableObject5" parent="." instance=ExtResource("8_en4f0")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -0.410662, 0.793891, -1.11411)
+
+[node name="kubek" parent="." instance=ExtResource("9_anmqm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.255876, 0.699278, -1.07284)
+
+[node name="scope4x" parent="." instance=ExtResource("10_x005h")]
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("11_i1d1l")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.74934, 0, 0)
+
+[node name="CharacterBody3D2" parent="." instance=ExtResource("11_i1d1l")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -1.98971, 0, 1.84665)
+
+[node name="CharacterBody3D3" parent="." instance=ExtResource("11_i1d1l")]
+transform = Transform3D(-0.202822, 0, 0.979216, 0, 1, 0, -0.979216, 0, -0.202822, -1.89346, 0, 0.92081)
+
+[node name="CharacterBody3D4" parent="." instance=ExtResource("11_i1d1l")]
+transform = Transform3D(0.426711, 0, 0.904388, 0, 1, 0, -0.904388, 0, 0.426711, -1.83485, 0, -0.837947)
+
+[node name="CharacterBody3D5" parent="." instance=ExtResource("11_i1d1l")]
+transform = Transform3D(0.821736, 0, 0.569868, 0, 1, 0, -0.569868, 0, 0.821736, -1.36899, 0, -1.3795)
+
+[node name="scope4x2" parent="." instance=ExtResource("10_x005h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.158049, 0.826303, -1.24557)
